@@ -217,6 +217,16 @@
       text-align: left;
     }
 
+    .instruction-callout {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
     .badge-tag {
       display: inline-block;
       background: var(--secondary);
@@ -234,7 +244,10 @@
 <div class="container">
   <header>
     <h1>🇫🇷 Grade 6 MYP French Challenge</h1>
-    <p style="color: var(--text-muted); margin: 0;">Family, Greetings & Numbers (0–20)</p>
+    <p style="color: var(--text-muted); margin: 5px 0 0 0;">Family, Greetings & Numbers (0–20)</p>
+    <p style="font-weight: bold; color: var(--primary); margin-top: 8px;">
+      You need 80% accuracy to pass to the next level. Try to see how far you can go!
+    </p>
   </header>
 
   <!-- Navigation -->
@@ -282,7 +295,7 @@
     </div>
   </div>
 
-  <!-- LEVEL 3B -->
+  <!-- LEVEL 3B (Level 4 Writing) -->
   <div id="level-3b" class="level-stage hidden">
     <h2>Level 3B: Super Challenge Writing Extension</h2>
     <p style="color: var(--text-muted);">Apply everything you know by writing full French descriptions.</p>
@@ -303,7 +316,7 @@
     </div>
 
     <div class="btn-group">
-      <button class="action-btn" onclick="completeExtension()">Finish & Generate Final Certificate</button>
+      <button class="action-btn" onclick="completeExtension()">Finish & Generate Teacher Overview</button>
     </div>
   </div>
 
@@ -322,11 +335,15 @@
   <div id="summary-screen" class="hidden">
     <div style="text-align: center;">
       <h2>🎓 Student Progress & Teacher Overview</h2>
-      <p>Show this screen to your teacher or take a screenshot!</p>
+    </div>
+
+    <div class="instruction-callout">
+      <strong>📌 What to do next:</strong><br>
+      Take a screenshot or upload to ManageBac by clicking on the task and selecting <strong>"submit coursework"</strong>.
     </div>
 
     <div class="summary-box">
-      <h3 style="margin-top:0; color: var(--primary);">Completion Certificate</h3>
+      <h3 style="margin-top:0; color: var(--primary);">Completion Overview</h3>
       <p><strong>Date & Time:</strong> <span id="summary-date"></span></p>
       <p><strong>Level 1 Score:</strong> <span id="s-l1">Not Attempted</span></p>
       <p><strong>Level 2 Score:</strong> <span id="s-l2">Not Attempted</span></p>
@@ -342,7 +359,7 @@
     </div>
 
     <div class="btn-group">
-      <button class="action-btn" onclick="window.print()" style="background: var(--secondary);">📷 Screenshot / Print Overview</button>
+      <button class="action-btn" onclick="window.print()" style="background: var(--secondary);">📷 Print / Save as PDF</button>
     </div>
   </div>
 
@@ -404,21 +421,20 @@
     { type: 'text', q: "Fix the phrase: 'Mon mère' -> Write the corrected phrase:", ansStr: "ma mère", explain: "Mother is feminine, so it must be <b>ma mère</b>." }
   ];
 
-  // Helper function to remove diacritics and normalize text input
   function normalizeText(str) {
     if (!str) return "";
     return str
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "") // Remove accents (è -> e, é -> e, etc.)
-      .replace(/œ/g, "oe")            // Convert ligatures (œ -> oe)
-      .replace(/æ/g, "ae")            // Convert ligatures (æ -> ae)
-      .replace(/ç/g, "c")             // Convert cedilla (ç -> c)
-      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") // Remove punctuation
+      .replace(/[\u0300-\u036f]/g, "") 
+      .replace(/œ/g, "oe")            
+      .replace(/æ/g, "ae")            
+      .replace(/ç/g, "c")             
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") 
       .trim();
   }
 
-  // Helper function to shuffle arrays (Fisher-Yates Shuffle)
+  // Enhanced Fisher-Yates array shuffling
   function shuffleArray(array) {
     let arr = JSON.parse(JSON.stringify(array));
     for (let i = arr.length - 1; i > 0; i--) {
@@ -428,7 +444,7 @@
     return arr;
   }
 
-  // Shuffle both question order AND options order for each question
+  // Thoroughly shuffle questions and options
   function prepareStageData(rawData) {
     let shuffledQuestions = shuffleArray(rawData);
     shuffledQuestions.forEach(item => {
@@ -439,7 +455,6 @@
     return shuffledQuestions;
   }
 
-  // Active Stage Question Sets
   const l1Data = prepareStageData(l1DataRaw);
   const l2Data = prepareStageData(l2DataRaw);
   const l3aData = prepareStageData(l3aDataRaw);
@@ -553,6 +568,7 @@
       nextBtn.classList.remove('hidden');
       retryBtn.classList.add('hidden');
       
+      // Allow Teacher Overview generation after Level 2 and Level 3A
       if (stageNum >= 2) {
         earlySummaryBtn.classList.remove('hidden');
       } else {
