@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Family & Numbers Masterclass</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --primary: #5c6ac4;
+      --primary-light: #eef0fd;
+      --secondary: #47c1bf;
+      --warning: #f5a623;
+      --error: #de3618;
+      --text: #212b36;
+      --text-muted: #637381;
+      --border: #dfe3e8;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 850px;
+      width: 100%;
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 15px;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin: 0 0 5px 0;
+      font-size: 2rem;
+    }
+
+    .level-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .level-badge {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-radius: 10px;
+      color: var(--text-muted);
+      background: #f4f6f8;
+      border: 1px solid var(--border);
+    }
+
+    .level-badge.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .level-badge.completed {
+      background: var(--secondary);
+      color: white;
+      border-color: var(--secondary);
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button.opt-btn {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    button.opt-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .feedback.correct {
+      background: #e3f8f7;
+      border: 1px solid var(--secondary);
+      color: #005c53;
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background: #fbeae8;
+      border: 1px solid #f8a89d;
+      color: #bf0711;
+      display: block;
+    }
+
+    .audio-btn {
+      background: #637381;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .audio-btn:hover {
+      background: #454f5b;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-block;
+      margin: 10px 5px 0 5px;
+    }
+
+    .action-btn:hover {
+      background: #454f9e;
+    }
+
+    .action-btn.secondary-btn {
+      background: #637381;
+    }
+
+    .action-btn.secondary-btn:hover {
+      background: #454f5b;
+    }
+
+    .btn-group {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .summary-box {
+      background: #f4f6f8;
+      border: 2px dashed var(--primary);
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      background: var(--secondary);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🇫🇷 Grade 6 MYP French Challenge</h1>
+    <p style="color: var(--text-muted); margin: 0;">Family, Greetings & Numbers (0–20)</p>
+  </header>
+
+  <!-- Navigation -->
+  <div class="level-nav">
+    <div id="badge-1" class="level-badge active">Level 1: Words & Numbers</div>
+    <div id="badge-2" class="level-badge">Level 2: Building Phrases</div>
+    <div id="badge-3a" class="level-badge">Level 3A: Audio & Errors</div>
+    <div id="badge-3b" class="level-badge">Level 3B: Writing Extension</div>
+  </div>
+
+  <!-- LEVEL 1 -->
+  <div id="level-1" class="level-stage">
+    <h2>Level 1: Individual Vocabulary & Numbers (15 Questions)</h2>
+    <p style="color: var(--text-muted);">Demonstrate complete accuracy on pronouns, numbers, possessives, and family terms.</p>
+    <div id="l1-container"></div>
+    <div class="btn-group">
+      <button class="action-btn" onclick="checkStage(1)">Submit Level 1</button>
+    </div>
+  </div>
+
+  <!-- LEVEL 2 -->
+  <div id="level-2" class="level-stage hidden">
+    <h2>Level 2: Building Complete Sentences (15 Questions)</h2>
+    <p style="color: var(--text-muted);">Put words together correctly! Pay close attention to <i>mon/ma/mes</i> and verb forms.</p>
+    <div id="l2-container"></div>
+    <div class="btn-group">
+      <button class="action-btn" onclick="checkStage(2)">Submit Level 2</button>
+    </div>
+  </div>
+
+  <!-- LEVEL 3A -->
+  <div id="level-3a" class="level-stage hidden">
+    <h2>Level 3A: Audio Listening & Error Spotting (15 Questions)</h2>
+    <p style="color: var(--text-muted);">Listen to native speech clips, spot grammar mistakes, and answer comprehension questions.</p>
+    
+    <div class="card" style="background: #eef0fd; border-color: var(--primary);">
+      <span class="badge-tag">LISTENING PASSAGE</span>
+      <p style="margin: 5px 0 10px 0;">Listen to Alex introducing his family:</p>
+      <button class="audio-btn" onclick="playAudio('Bonjour! Je m\'appelle Alex. J\'ai treize ans. Voici ma famille. Mon père s\'appelle Thomas, il a quarante ans. Ma mère s\'appelle Julie. J\'ai une tante, elle s\'appelle Claire, et un cousin qui s\'appelle Léo. J\'ai aussi un grand-père, il a dix-neuf... non, il a soixante-dix ans!')">🔊 Play French Audio Passage</button>
+    </div>
+
+    <div id="l3a-container"></div>
+    <div class="btn-group">
+      <button class="action-btn" onclick="checkStage(3)">Submit Level 3A</button>
+    </div>
+  </div>
+
+  <!-- LEVEL 3B -->
+  <div id="level-3b" class="level-stage hidden">
+    <h2>Level 3B: Super Challenge Writing Extension</h2>
+    <p style="color: var(--text-muted);">Apply everything you know by writing full French descriptions.</p>
+    
+    <div class="card">
+      <div class="question-title">1. Write a complete 3-sentence introduction of yourself (Greeting, Name, Age).</div>
+      <textarea id="write-1" placeholder="e.g. Bonjour! Je m'appelle... J'ai... ans."></textarea>
+    </div>
+
+    <div class="card">
+      <div class="question-title">2. Describe TWO members of your extended family (Name + Age). Include terms like uncle, aunt, cousin, or grandparent.</div>
+      <textarea id="write-2" placeholder="e.g. Mon oncle s'appelle Marc, il a... ans. Ma tante..."></textarea>
+    </div>
+
+    <div class="card">
+      <div class="question-title">3. Write out these numbers in French words: 14, 16, 18, 20.</div>
+      <input type="text" id="write-3" placeholder="Type the four French number words separated by commas...">
+    </div>
+
+    <div class="btn-group">
+      <button class="action-btn" onclick="completeExtension()">Finish & Generate Final Certificate</button>
+    </div>
+  </div>
+
+  <!-- INTERMEDIATE STAGE FEEDBACK -->
+  <div id="result-screen" class="hidden" style="text-align: center; padding: 20px;">
+    <h2 id="result-title"></h2>
+    <p id="result-msg"></p>
+    <div class="btn-group">
+      <button id="next-btn" class="action-btn" onclick="nextStage()">Proceed to Next Level</button>
+      <button id="early-summary-btn" class="action-btn secondary-btn hidden" onclick="generateSummary(false)">Generate Teacher Overview (Stop Here)</button>
+      <button id="retry-btn" class="action-btn hidden" onclick="retryStage()" style="background: var(--warning); color: #000;">Try Stage Again</button>
+    </div>
+  </div>
+
+  <!-- FINAL SUMMARY / SCREENSHOT PAGE -->
+  <div id="summary-screen" class="hidden">
+    <div style="text-align: center;">
+      <h2>🎓 Student Progress & Teacher Overview</h2>
+      <p>Show this screen to your teacher or take a screenshot!</p>
+    </div>
+
+    <div class="summary-box">
+      <h3 style="margin-top:0; color: var(--primary);">Completion Certificate</h3>
+      <p><strong>Date & Time:</strong> <span id="summary-date"></span></p>
+      <p><strong>Level 1 Score:</strong> <span id="s-l1">Not Attempted</span></p>
+      <p><strong>Level 2 Score:</strong> <span id="s-l2">Not Attempted</span></p>
+      <p><strong>Level 3A Score:</strong> <span id="s-l3a">Not Attempted</span></p>
+      
+      <div id="writing-summary-block">
+        <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
+        <h4>Level 3B Writing Work:</h4>
+        <p><strong>Self Introduction:</strong> <br><i id="sw-1">None</i></p>
+        <p><strong>Extended Family:</strong> <br><i id="sw-2">None</i></p>
+        <p><strong>Number Words (14, 16, 18, 20):</strong> <br><i id="sw-3">None</i></p>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="action-btn" onclick="window.print()" style="background: var(--secondary);">📷 Screenshot / Print Overview</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Raw Data Sets (15 Qs each)
+  const l1DataRaw = [
+    { type: 'mc', q: "How do you say 'My name is' in French?", opts: ["Je m'appelle", "Tu t'appelles", "Il s'appelle", "J'ai"], ansStr: "Je m'appelle", explain: "<b>Je m'appelle</b> = My name is. <i>Tu t'appelles</i> = Your name is." },
+    { type: 'mc', q: "Which word means 'years old' when talking about age?", opts: ["nom", "âge", "ans", "année"], ansStr: "ans", explain: "We say <i>J'ai 12 <b>ans</b></i> in French." },
+    { type: 'mc', q: "Select the French word for 'Uncle':", opts: ["l'oncle", "la tante", "le cousin", "le père"], ansStr: "l'oncle", explain: "<b>L'oncle</b> = Uncle. <i>La tante</i> = Aunt." },
+    { type: 'mc', q: "Which word means 'MY' before a feminine word like <i>mère</i>?", opts: ["mon", "ma", "mes", "le"], ansStr: "ma", explain: "Use <b>ma</b> for feminine words (<i>ma mère</i>) and <b>mon</b> for masculine words." },
+    { type: 'text', q: "Write the French word for the number 15:", ansStr: "quinze", explain: "The number 15 in French is spelled <b>quinze</b>." },
+    { type: 'mc', q: "How do you say 'Grandmother' in French?", opts: ["la grand-mère", "le grand-père", "la tante", "la sœur"], ansStr: "la grand-mère", explain: "<b>La grand-mère</b> = Grandmother." },
+    { type: 'mc', q: "What is the correct French word for 11?", opts: ["dix", "onze", "douze", "treize"], ansStr: "onze", explain: "11 = <b>onze</b>, 12 = <i>douze</i>, 13 = <i>treize</i>." },
+    { type: 'text', q: "Write the French word for the number 12:", ansStr: "douze", explain: "12 in French is spelled <b>douze</b>." },
+    { type: 'mc', q: "Choose the pronoun for 'YOU' (informal):", opts: ["Je", "Tu", "Il", "Elle"], ansStr: "Tu", explain: "<b>Tu</b> = You (informal/singular)." },
+    { type: 'mc', q: "How do you say 'Aunt' in French?", opts: ["la tante", "la cousine", "la mère", "la fille"], ansStr: "la tante", explain: "<b>La tante</b> = Aunt." },
+    { type: 'text', q: "Write the French word for 'Brother':", ansStr: "frère", explain: "Brother = <b>frère</b> (or <i>le frère</i>)." },
+    { type: 'mc', q: "What is the French word for 13?", opts: ["quatorze", "seize", "treize", "dix-sept"], ansStr: "treize", explain: "13 = <b>treize</b>." },
+    { type: 'mc', q: "Which pronoun means 'HE'?", opts: ["Elle", "Il", "Je", "Tu"], ansStr: "Il", explain: "<b>Il</b> = He, <i>Elle</i> = She." },
+    { type: 'text', q: "Write the French word for 'Sister':", ansStr: "sœur", explain: "Sister = <b>sœur</b>." },
+    { type: 'mc', q: "What is the French word for 'Cousin' (female)?", opts: ["le cousin", "la cousine", "la tante", "la sœur"], ansStr: "la cousine", explain: "Female cousin = <b>la cousine</b>. Male cousin = <i>le cousin</i>." }
+  ];
+
+  const l2DataRaw = [
+    { type: 'mc', q: "Translate: 'My father is named Marc.'", opts: ["Ma père s'appelle Marc.", "Mon père t'appelle Marc.", "Mon père s'appelle Marc.", "Mon père a Marc."], ansStr: "Mon père s'appelle Marc.", explain: "<i>Père</i> is masculine so it takes <b>mon</b>, and 'is named' is <b>s'appelle</b>." },
+    { type: 'mc', q: "Translate: 'He is 14 years old.'", opts: ["Il est 14 ans.", "Il a quatorze ans.", "Il a quatorze âge.", "Elle a quatorze ans."], ansStr: "Il a quatorze ans.", explain: "Age uses <b>avoir (a)</b> and <b>ans</b>, so: <i>Il a quatorze ans</i>." },
+    { type: 'text', q: "Fill in the missing word: 'Elle ___ 10 ans.' (has)", ansStr: "a", explain: "The form of <i>avoir</i> for <i>il/elle</i> is <b>a</b>." },
+    { type: 'mc', q: "Choose the correct phrase: 'My parents'", opts: ["mon parents", "ma parents", "mes parents", "le parents"], ansStr: "mes parents", explain: "Use <b>mes</b> before plural words like <i>parents</i>." },
+    { type: 'text', q: "Fill in the missing word: 'Mon oncle s'___ Pierre.' (is named)", ansStr: "appelle", explain: "For <i>il/elle/oncle</i>, use <b>s'appelle</b>." },
+    { type: 'mc', q: "Translate: 'My aunt is 16 years old.'", opts: ["Ma tante a seize ans.", "Mon tante a seize ans.", "Ma tante est seize ans.", "Ma tante a dix-six ans."], ansStr: "Ma tante a seize ans.", explain: "<i>Tante</i> is feminine (<b>Ma</b>), 16 is <b>seize</b>, and age uses <b>a</b>." },
+    { type: 'text', q: "Fill in the possessive: '___ grand-père' (MY - masculine)", ansStr: "mon", explain: "Grandfather is masculine, so use <b>mon</b>." },
+    { type: 'mc', q: "Which sentence means: 'Your name is Paul'?", opts: ["Je m'appelle Paul.", "Tu t'appelles Paul.", "Il s'appelle Paul.", "Tu as Paul."], ansStr: "Tu t'appelles Paul.", explain: "<b>Tu t'appelles</b> = Your name is." },
+    { type: 'mc', q: "Translate: 'My brother is 8 years old.'", opts: ["Mon frère a huit ans.", "Ma frère a huit ans.", "Mon frère est huit ans.", "Mon frère a sept ans."], ansStr: "Mon frère a huit ans.", explain: "8 = <b>huit</b> and brother is masculine (<b>mon</b>)." },
+    { type: 'text', q: "Translate to French: 'I have' (for age)", ansStr: "j'ai", explain: "'I have' in French is written as <b>J'ai</b>." },
+    { type: 'mc', q: "Choose the correct option: '___ cousine s'appelle Sarah.' (MY)", opts: ["Mon", "Ma", "Mes", "Le"], ansStr: "Ma", explain: "<i>Cousine</i> is feminine, so it requires <b>Ma</b>." },
+    { type: 'text', q: "Fill in the missing number: 'dix, onze, ____, treize'", ansStr: "douze", explain: "10 (dix), 11 (onze), 12 (<b>douze</b>), 13 (treize)." },
+    { type: 'mc', q: "Translate: 'She is named Julie.'", opts: ["Il s'appelle Julie.", "Elle s'appelle Julie.", "Elle t'appelle Julie.", "Elle a Julie."], ansStr: "Elle s'appelle Julie.", explain: "<b>Elle</b> = She, <b>s'appelle</b> = is named." },
+    { type: 'mc', q: "Choose the correct phrase: 'My cousins (plural)'", opts: ["mon cousins", "ma cousins", "mes cousins", "nos cousin"], ansStr: "mes cousins", explain: "Plural nouns take <b>mes</b>." },
+    { type: 'text', q: "Translate: 'I am 11 years old' (Write out the full sentence)", ansStr: "j'ai onze ans", explain: "Full sentence: <b>J'ai onze ans</b> (or <i>J'ai 11 ans</i>)." }
+  ];
+
+  const l3aDataRaw = [
+    { type: 'mc', q: "AUDIO CHECK: How old is Alex in the audio passage?", opts: ["12 years old", "13 years old", "14 years old", "15 years old"], ansStr: "13 years old", explain: "Alex says: <i>'J'ai treize ans'</i> (13 years old)." },
+    { type: 'mc', q: "AUDIO CHECK: What is Alex's aunt named?", opts: ["Julie", "Sophie", "Claire", "Marie"], ansStr: "Claire", explain: "Alex says: <i>'J'ai une tante, elle s'appelle Claire'</i>." },
+    { type: 'mc', q: "AUDIO CHECK: How old is Alex's grandfather?", opts: ["19 years old", "70 years old", "40 years old", "60 years old"], ansStr: "70 years old", explain: "Alex corrects himself to say his grandfather is 70 (<i>soixante-dix</i>), not 19!" },
+    { type: 'mc', q: "SPOT THE ERROR: 'Je t'appelle Thomas et j'ai 12 âge.'", opts: ["Should be 'Je m'appelle' and '12 ans'.", "Should be 'Mon appelle'.", "Should be 'J'ai 12 ans' only.", "No errors."], ansStr: "Should be 'Je m'appelle' and '12 ans'.", explain: "'Je t'appelle' means 'I call you'. Say <b>Je m'appelle</b> and use <b>ans</b> for age!" },
+    { type: 'mc', q: "SPOT THE ERROR: 'Ma père a 40 ans.'", opts: ["Should be 'Mon père'.", "Should be 'Ma mère'.", "Should be 'Ma père est'.", "Should be 'Mon père a 40 âge'."], ansStr: "Should be 'Mon père'.", explain: "<i>Père</i> is masculine, so it must be <b>Mon père</b>." },
+    { type: 'text', q: "AUDIO CHECK: Listen and write the name of Alex's cousin:", ansStr: "léo", explain: "Alex states: <i>'un cousin qui s'appelle Léo'</i>." },
+    { type: 'mc', q: "SPOT THE ERROR: 'Elle s'appelle Sarah, il a 15 ans.'", opts: ["'il a' should be 'elle a'.", "15 is incorrect.", "'s'appelle' should be 't'appelle'.", "No errors."], ansStr: "'il a' should be 'elle a'.", explain: "Sarah is female, so use <b>elle a</b> (she has), not <i>il a</i>." },
+    { type: 'mc', q: "READING COMPREHENSION: 'Mon oncle a 35 ans.' What does this mean?", opts: ["My aunt is 35.", "My uncle is 35.", "My father is 35.", "My cousin is 35."], ansStr: "My uncle is 35.", explain: "<b>Mon oncle</b> = My uncle." },
+    { type: 'text', q: "Fix the mistake in this phrase: 'J'est 12 ans' -> Write the correct sentence:", ansStr: "j'ai 12 ans", explain: "Do not use <i>est</i> (is) for age! Say <b>J'ai 12 ans</b>." },
+    { type: 'mc', q: "SPOT THE ERROR: 'Mon tante s'appelle Marie.'", opts: ["Should be 'Ma tante'.", "Should be 'Mon oncle'.", "Should be 'Ma tante t'appelle'.", "No errors."], ansStr: "Should be 'Ma tante'.", explain: "<i>Tante</i> is feminine, so use <b>Ma tante</b>." },
+    { type: 'mc', q: "READING COMPREHENSION: 'Ma cousine s'appelle Emma, elle a 9 ans.' Who is 9?", opts: ["Emma's brother", "Emma's sister", "Emma (the female cousin)", "Emma's mother"], ansStr: "Emma (the female cousin)", explain: "The sentence describes Emma, the female cousin (<i>ma cousine</i>)." },
+    { type: 'text', q: "Write the French word Alex used for 'father':", ansStr: "père", explain: "Father in French is <b>père</b>." },
+    { type: 'mc', q: "SPOT THE ERROR: 'Il a dix-neuf ans.' If he is 19, is this correct?", opts: ["Yes, completely correct!", "No, dix-neuf means 20.", "No, it should use 'est'.", "No, dix-neuf means 18."], ansStr: "Yes, completely correct!", explain: "<b>Dix-neuf</b> is 19, and <b>Il a ... ans</b> is grammatically perfect!" },
+    { type: 'mc', q: "READING COMPREHENSION: 'J'ai deux frères.' What does this mean?", opts: ["I have two sisters.", "I have two brothers.", "I have two cousins.", "I have two uncles."], ansStr: "I have two brothers.", explain: "<b>Frères</b> = brothers." },
+    { type: 'text', q: "Fix the phrase: 'Mon mère' -> Write the corrected phrase:", ansStr: "ma mère", explain: "Mother is feminine, so it must be <b>ma mère</b>." }
+  ];
+
+  // Helper function to remove diacritics and normalize text input
+  function normalizeText(str) {
+    if (!str) return "";
+    return str
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // Remove accents (è -> e, é -> e, etc.)
+      .replace(/œ/g, "oe")            // Convert ligatures (œ -> oe)
+      .replace(/æ/g, "ae")            // Convert ligatures (æ -> ae)
+      .replace(/ç/g, "c")             // Convert cedilla (ç -> c)
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") // Remove punctuation
+      .trim();
+  }
+
+  // Helper function to shuffle arrays (Fisher-Yates Shuffle)
+  function shuffleArray(array) {
+    let arr = JSON.parse(JSON.stringify(array));
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Shuffle both question order AND options order for each question
+  function prepareStageData(rawData) {
+    let shuffledQuestions = shuffleArray(rawData);
+    shuffledQuestions.forEach(item => {
+      if (item.type === 'mc') {
+        item.opts = shuffleArray(item.opts);
+      }
+    });
+    return shuffledQuestions;
+  }
+
+  // Active Stage Question Sets
+  const l1Data = prepareStageData(l1DataRaw);
+  const l2Data = prepareStageData(l2DataRaw);
+  const l3aData = prepareStageData(l3aDataRaw);
+
+  let currentStage = 1;
+  let userAnswers = {};
+  let scores = { 1: null, 2: null, 3: null };
+
+  function playAudio(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'fr-FR';
+      msg.rate = 0.85;
+      window.speechSynthesis.speak(msg);
+    } else {
+      alert("Audio synthesis is not supported on this browser.");
+    }
+  }
+
+  function renderQuestions(data, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+    data.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      
+      let inputHTML = "";
+      if (item.type === 'mc') {
+        let optsHTML = "";
+        item.opts.forEach((opt) => {
+          const safeOpt = opt.replace(/'/g, "\\'");
+          optsHTML += `<button class="opt-btn" onclick="selectOpt(${idx}, '${safeOpt}', this)">${opt}</button>`;
+        });
+        inputHTML = `<div class="options-grid" id="opts-${idx}">${optsHTML}</div>`;
+      } else {
+        inputHTML = `<input type="text" id="input-${idx}" placeholder="Type your answer in French..." oninput="recordText(${idx}, this.value)">`;
+      }
+
+      card.innerHTML = `
+        <div class="question-title">${idx + 1}. ${item.q}</div>
+        ${inputHTML}
+        <div class="feedback" id="fb-${idx}"></div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  renderQuestions(l1Data, "l1-container");
+  renderQuestions(l2Data, "l2-container");
+  renderQuestions(l3aData, "l3a-container");
+
+  function selectOpt(qIdx, optVal, btn) {
+    const parent = btn.parentElement;
+    Array.from(parent.children).forEach(b => b.style.borderColor = "var(--border)");
+    btn.style.borderColor = "var(--primary)";
+    userAnswers[qIdx] = optVal;
+  }
+
+  function recordText(qIdx, val) {
+    userAnswers[qIdx] = val;
+  }
+
+  function checkStage(stageNum) {
+    let data = stageNum === 1 ? l1Data : (stageNum === 2 ? l2Data : l3aData);
+    let correctCount = 0;
+
+    data.forEach((item, idx) => {
+      const fb = document.getElementById(`fb-${idx}`);
+      let isCorrect = false;
+
+      if (item.type === 'mc') {
+        if (userAnswers[idx] === item.ansStr) isCorrect = true;
+      } else {
+        const userVal = normalizeText(userAnswers[idx]);
+        const targetVal = normalizeText(item.ansStr);
+        if (userVal === targetVal || userVal.includes(targetVal)) isCorrect = true;
+      }
+
+      if (isCorrect) {
+        correctCount++;
+        fb.className = "feedback correct";
+        fb.innerHTML = `<b>Bravo! ✅</b> ${item.explain}`;
+      } else {
+        fb.className = "feedback incorrect";
+        fb.innerHTML = `<b>Not quite! 💡</b> ${item.explain}`;
+      }
+    });
+
+    const pct = (correctCount / data.length) * 100;
+    scores[stageNum] = Math.round(pct);
+    showStageResult(pct, stageNum);
+  }
+
+  function showStageResult(pct, stageNum) {
+    document.querySelectorAll('.level-stage').forEach(el => el.classList.add('hidden'));
+    const resScreen = document.getElementById('result-screen');
+    resScreen.classList.remove('hidden');
+
+    const title = document.getElementById('result-title');
+    const msg = document.getElementById('result-msg');
+    const nextBtn = document.getElementById('next-btn');
+    const earlySummaryBtn = document.getElementById('early-summary-btn');
+    const retryBtn = document.getElementById('retry-btn');
+
+    if (pct >= 80) {
+      title.innerText = "🎉 Stage Mastered!";
+      title.style.color = "var(--secondary)";
+      msg.innerText = `You scored ${Math.round(pct)}%! You have met the 80% benchmark and unlocked the next stage.`;
+      
+      nextBtn.classList.remove('hidden');
+      retryBtn.classList.add('hidden');
+      
+      if (stageNum >= 2) {
+        earlySummaryBtn.classList.remove('hidden');
+      } else {
+        earlySummaryBtn.classList.add('hidden');
+      }
+      
+      updateBadges(stageNum);
+    } else {
+      title.innerText = "💪 Almost There!";
+      title.style.color = "var(--warning)";
+      msg.innerText = `You scored ${Math.round(pct)}%. You need 80% to unlock the next level. Read the hints provided under each question and try again!`;
+      
+      nextBtn.classList.add('hidden');
+      earlySummaryBtn.classList.add('hidden');
+      retryBtn.classList.remove('hidden');
+    }
+  }
+
+  function updateBadges(completedStage) {
+    if (completedStage === 1) {
+      document.getElementById('badge-1').className = "level-badge completed";
+      document.getElementById('badge-2').className = "level-badge active";
+    } else if (completedStage === 2) {
+      document.getElementById('badge-2').className = "level-badge completed";
+      document.getElementById('badge-3a').className = "level-badge active";
+    } else if (completedStage === 3) {
+      document.getElementById('badge-3a').className = "level-badge completed";
+      document.getElementById('badge-3b').className = "level-badge active";
+    }
+  }
+
+  function retryStage() {
+    document.getElementById('result-screen').classList.add('hidden');
+    let stageId = currentStage === 1 ? 'level-1' : (currentStage === 2 ? 'level-2' : 'level-3a');
+    document.getElementById(stageId).classList.remove('hidden');
+  }
+
+  function nextStage() {
+    document.getElementById('result-screen').classList.add('hidden');
+    userAnswers = {};
+    if (currentStage === 1) {
+      currentStage = 2;
+      document.getElementById('level-2').classList.remove('hidden');
+    } else if (currentStage === 2) {
+      currentStage = 3;
+      document.getElementById('level-3a').classList.remove('hidden');
+    } else if (currentStage === 3) {
+      currentStage = 4;
+      document.getElementById('level-3b').classList.remove('hidden');
+    }
+  }
+
+  function completeExtension() {
+    generateSummary(true);
+  }
+
+  function generateSummary(isExtensionCompleted) {
+    document.querySelectorAll('.level-stage').forEach(el => el.classList.add('hidden'));
+    document.getElementById('result-screen').classList.add('hidden');
+    
+    document.getElementById('summary-screen').classList.remove('hidden');
+    document.getElementById('summary-date').innerText = new Date().toLocaleString();
+    
+    document.getElementById('s-l1').innerText = scores[1] !== null ? scores[1] + "% (Passed)" : "Not Completed";
+    document.getElementById('s-l2').innerText = scores[2] !== null ? scores[2] + "% (Passed)" : "Not Completed";
+    document.getElementById('s-l3a').innerText = scores[3] !== null ? scores[3] + "% (Passed)" : "Not Completed";
+
+    const writingBlock = document.getElementById('writing-summary-block');
+    
+    if (isExtensionCompleted) {
+      writingBlock.style.display = "block";
+      document.getElementById('sw-1').innerText = document.getElementById('write-1').value || "No response provided.";
+      document.getElementById('sw-2').innerText = document.getElementById('write-2').value || "No response provided.";
+      document.getElementById('sw-3').innerText = document.getElementById('write-3').value || "No response provided.";
+    } else {
+      writingBlock.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>
